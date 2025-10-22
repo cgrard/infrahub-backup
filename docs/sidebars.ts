@@ -5,16 +5,26 @@ const sidebars: SidebarsConfig = {
     'readme',
     {
       type: 'category',
-      label: 'Guides',
+      label: 'Tutorials',
       items: [
-        'guides/installation',
+        'tutorials/getting-started',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'How-to Guides',
+      items: [
+        'guides/install',
+        'guides/backup-instance',
+        'guides/restore-backup',
       ],
     },
     {
       type: 'category',
       label: 'Reference',
       items: [
-        'references/commands',
+        'reference/commands',
+        'reference/configuration',
       ],
     },
   ]
