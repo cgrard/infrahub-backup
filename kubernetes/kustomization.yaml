@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: infrahub
+
+resources:
+- rbac.yaml
+- configmap.yaml
+- secret.yaml
+- cronjob.yaml
+
+# Common labels applied to all resources
+commonLabels:
+  app.kubernetes.io/name: infrahub-backup
+  app.kubernetes.io/component: backup
+
+images:
+- name: infrahub-backup
+  newName: your-registry/infrahub-backup
+  newTag: latest

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: infrahub-backup-config
+  namespace: infrahub
+data:
+  # Kubernetes namespace where Infrahub is deployed
+  k8s-namespace: "infrahub"
+
+  # Local backup directory (inside container)
+  backup-dir: "/backups"
+
+  # Log format: text or json
+  log-format: "json"
