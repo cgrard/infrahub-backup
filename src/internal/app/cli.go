@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/sirupsen/logrus"
@@ -17,6 +18,7 @@ func ConfigureRootCommand(cmd *cobra.Command, app *InfrahubOps) {
 	cmd.PersistentFlags().StringVar(&cfg.BackupDir, "backup-dir", cfg.BackupDir, "Backup directory")
 	cmd.PersistentFlags().StringVar(&cfg.K8sNamespace, "k8s-namespace", cfg.K8sNamespace, "Target Kubernetes namespace")
 	cmd.PersistentFlags().String("log-format", "text", "Log output format: text or json (can also set INFRAHUB_LOG_FORMAT)")
+	cmd.PersistentFlags().BoolVar(&cfg.S3Upload, "s3-upload", false, "Upload backup to S3 (requires S3_* env vars)")
 
 	bind := func(name string) {
 		if err := viper.BindPFlag(name, cmd.PersistentFlags().Lookup(name)); err != nil {
@@ -28,6 +30,7 @@ func ConfigureRootCommand(cmd *cobra.Command, app *InfrahubOps) {
 	bind("backup-dir")
 	bind("k8s-namespace")
 	bind("log-format")
+	bind("s3-upload")
 
 	cobra.OnInitialize(func() {
 		viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
@@ -43,6 +46,12 @@ func ConfigureRootCommand(cmd *cobra.Command, app *InfrahubOps) {
 		if viper.IsSet("k8s-namespace") {
 			cfg.K8sNamespace = viper.GetString("k8s-namespace")
 		}
+		if viper.IsSet("s3-upload") {
+			cfg.S3Upload = viper.GetBool("s3-upload")
+		}
+
+		// Load S3 configuration from environment variables
+		loadS3Config(cfg)
 
 		switch viper.GetString("log-format") {
 		case "json":
@@ -51,6 +60,27 @@ func ConfigureRootCommand(cmd *cobra.Command, app *InfrahubOps) {
 			logrus.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
 		}
 	})
+}
+
+// loadS3Config loads S3 configuration from environment variables
+func loadS3Config(cfg *Configuration) {
+	if bucket := os.Getenv("S3_BUCKET"); bucket != "" {
+		cfg.S3Bucket = bucket
+	}
+	if endpoint := os.Getenv("S3_ENDPOINT"); endpoint != "" {
+		cfg.S3Endpoint = endpoint
+	}
+	if accessKey := os.Getenv("S3_ACCESS_KEY_ID"); accessKey != "" {
+		cfg.S3AccessKeyID = accessKey
+	}
+	if secretKey := os.Getenv("S3_SECRET_ACCESS_KEY"); secretKey != "" {
+		cfg.S3SecretKey = secretKey
+	}
+	if region := os.Getenv("S3_REGION"); region != "" {
+		cfg.S3Region = region
+	} else {
+		cfg.S3Region = "us-east-1" // Default region
+	}
 }
 
 // AttachEnvironmentCommands wires the environment detection subcommands onto a root command.

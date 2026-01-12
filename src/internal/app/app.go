@@ -32,6 +32,13 @@ type Configuration struct {
 	PostgresUsername     string
 	PostgresPassword     string
 	PostgresDatabase     string
+	// S3 configuration
+	S3Upload        bool
+	S3Bucket        string
+	S3Endpoint      string
+	S3AccessKeyID   string
+	S3SecretKey     string
+	S3Region        string
 }
 
 // InfrahubOps is the main application struct

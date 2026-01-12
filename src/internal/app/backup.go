@@ -142,6 +142,13 @@ func (iops *InfrahubOps) CreateBackup(force bool, neo4jMetadata string, excludeT
 	}
 	logrus.WithFields(fields).Info("Backup created successfully")
 
+	// Upload to S3 if configured
+	if iops.config.S3Upload {
+		if err := iops.uploadBackupToS3(backupPath); err != nil {
+			return fmt.Errorf("backup created but failed to upload to S3: %w", err)
+		}
+	}
+
 	return retErr
 }
 
