@@ -121,7 +121,6 @@ func (k *KubernetesBackend) IsRunning(service string) (bool, error) {
 	return false, nil
 }
 
-
 func (k *KubernetesBackend) getPodStatuses(service string) ([]string, error) {
 	selectors := k.podSelectors(service)
 	for _, selector := range selectors {

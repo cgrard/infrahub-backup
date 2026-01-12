@@ -9,29 +9,29 @@ import (
 )
 
 const (
-	defaultFlowRunsRetention = 30
+	defaultFlowRunsRetention  = 30
 	defaultStaleRunsRetention = 2
-	defaultBatchSize = 200
+	defaultBatchSize          = 200
 )
 
 type flushConfig struct {
-	commandType      string
-	scriptName       string
-	scriptPath       string
+	commandType       string
+	scriptName        string
+	scriptPath        string
 	defaultDaysToKeep int
 }
 
 var (
 	flowRunsConfig = flushConfig{
-		commandType:      "flow-runs",
-		scriptName:       "clean_old_tasks.py",
-		scriptPath:       "/tmp/infrahubops_clean_old_tasks.py",
+		commandType:       "flow-runs",
+		scriptName:        "clean_old_tasks.py",
+		scriptPath:        "/tmp/infrahubops_clean_old_tasks.py",
 		defaultDaysToKeep: defaultFlowRunsRetention,
 	}
 	staleRunsConfig = flushConfig{
-		commandType:      "stale-runs",
-		scriptName:       "clean_stale_tasks.py",
-		scriptPath:       "/tmp/infrahubops_clean_stale_tasks.py",
+		commandType:       "stale-runs",
+		scriptName:        "clean_stale_tasks.py",
+		scriptPath:        "/tmp/infrahubops_clean_stale_tasks.py",
 		defaultDaysToKeep: defaultStaleRunsRetention,
 	}
 )

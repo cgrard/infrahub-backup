@@ -12,10 +12,10 @@ import (
 )
 
 const (
-	neo4jTempBackupDir         = "/tmp/infrahubops"
-	neo4jWatchdogInitTimeout   = 5 * time.Second
-	neo4jProcessStopTimeout    = 120 * time.Second
-	neo4jMetadataScriptPath    = "/data/scripts/neo4j/restore_metadata.cypher"
+	neo4jTempBackupDir       = "/tmp/infrahubops"
+	neo4jWatchdogInitTimeout = 5 * time.Second
+	neo4jProcessStopTimeout  = 120 * time.Second
+	neo4jMetadataScriptPath  = "/data/scripts/neo4j/restore_metadata.cypher"
 )
 
 func (iops *InfrahubOps) backupDatabase(backupDir string, backupMetadata string, neo4jEdition string) error {

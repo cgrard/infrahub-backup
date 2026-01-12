@@ -74,8 +74,8 @@ func (iops *InfrahubOps) CreateBackup(force bool, neo4jMetadata string, excludeT
 	defer os.RemoveAll(workDir)
 
 	logrus.WithFields(logrus.Fields{
-		"filename":    backupFilename,
-		"backup_dir":  iops.config.BackupDir,
+		"filename":      backupFilename,
+		"backup_dir":    iops.config.BackupDir,
 		"neo4j_edition": editionInfo.Edition,
 	}).Info("Creating backup")
 

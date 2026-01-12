@@ -11,12 +11,12 @@ import (
 
 // Default database credentials
 const (
-	defaultNeo4jDatabase      = "neo4j"
-	defaultNeo4jUsername      = "neo4j"
-	defaultNeo4jPassword      = "admin"
-	defaultPostgresDatabase   = "prefect"
-	defaultPostgresUsername   = "postgres"
-	defaultPostgresPassword   = "prefect"
+	defaultNeo4jDatabase    = "neo4j"
+	defaultNeo4jUsername    = "neo4j"
+	defaultNeo4jPassword    = "admin"
+	defaultPostgresDatabase = "prefect"
+	defaultPostgresUsername = "postgres"
+	defaultPostgresPassword = "prefect"
 )
 
 // fetchDatabaseCredentials retrieves database credentials from environment or containers
